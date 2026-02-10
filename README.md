@@ -4,102 +4,13 @@
 
 PiVault is a secure, self-hosted password manager optimized for Raspberry Pi and personal server environments. It features a "host-proof" architecture where the server stores encrypted data without having access to the decryption keys, ensuring maximum privacy.
 
+---
 
-## 🚀 Features
+## 🚀 Quick Start (Easy Deployment)
 
-- **Zero-Knowledge Architecture**: Data is encrypted on the client using AES-256-GCM before being sent to the server. The server never sees your passwords defined in the vault.
-- **Modern Security**:
-  - **Argon2id** for password hashing.
-  - **JWT** (JSON Web Tokens) for authentication.
-  - **TOTP** (Time-based One-Time Password) Two-Factor Authentication support.
-  - **Brute-force protection** with automatic temporary IP blocking.
-  - **Security Audit Log** for tracking all sensitive actions.
-- **Fast & Lightweight**:
-  - Backend built with **FastAPI** and **Async SQLite** (aiosqlite).
-  - Optimized for low-resource environments like Raspberry Pi.
-- **Responsive UI**:
-  - Frontend built with **React**, **Tailwind CSS**, and **Radix UI**.
-  - Mobile-friendly design.
-- **Developer Friendly**:
-  - Comprehensive API testing suite included.
-  - Easy to deploy and maintain.
+The fastest way to get PiVault running is using **Docker**. You can deploy it in seconds using our pre-built image.
 
-## 🛠️ Tech Stack
-
-### Backend
-- **Framework**: FastAPI (Python)
-- **Database**: SQLite (Async with WAL mode enabled)
-- **Security**: PyJWT, Argon2-cffi, PyOTP
-- **Testing**: Pytest
-
-### Frontend
-- **Framework**: React 19
-- **Build Tool**: Create React App (with Craco)
-- **Styling**: Tailwind CSS, Lucide React (Icons)
-- **Components**: Radix UI Primitives
-- **State/Data**: Axios, React Hook Form, Zod
-
-## 🏁 Getting Started
-
-### Prerequisites
-- Python 3.9+
-- Node.js 18+
-
-### Backend Setup
-
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-
-2. Create a virtual environment and activate it:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Create a `.env` file (optional, defaults provided in code):
-   ```env
-   JWT_SECRET=your_super_secure_secret_key_here
-   CORS_ORIGINS=http://localhost:3000
-   ```
-
-5. Start the server:
-   ```bash
-   uvicorn server:app --reload --host 0.0.0.0 --port 8000
-   ```
-   The API will be available at `http://localhost:8000`. API docs are at `http://localhost:8000/docs`.
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm start
-   ```
-   The application will open at `http://localhost:3000`.
-
-## 🐳 Docker Deployment
-
-PiVault is optimized for Docker, making it easy to deploy on any server or Raspberry Pi.
-
-### 1. Using the Pre-built Image (Recommended)
-The official image is available on **GitHub Container Registry**. You can run it without cloning the repository by using this `docker-compose.yml`:
-
+### 1. Create a `docker-compose.yml` file:
 ```yaml
 services:
   pivault:
@@ -114,40 +25,65 @@ services:
     restart: unless-stopped
 ```
 
-### 2. Manual Build
-If you want to build the image locally from source:
+### 2. Launch the vault:
+```bash
+docker compose up -d
+```
 
-1. Clone the repository and navigate to the folder.
-2. Build and launch:
-   ```bash
-   docker compose up -d --build
-   ```
+### 3. Access your vault:
+Open your browser and navigate to `http://localhost:8000`.
 
-The application will be accessible at `http://localhost:8000`.
+---
+
+## ✨ Features
+
+- **Zero-Knowledge Architecture**: Data is encrypted on the client using AES-256-GCM. The server never sees your master password or decrypted data.
+- **Modern Security**:
+  - **Argon2id** for high-security password hashing.
+  - **TOTP (2FA)** support for an extra layer of protection.
+  - **Brute-force protection** with automatic IP rate-limiting.
+  - **Security Audit Log** to monitor all access and changes.
+- **Fast & Lightweight**: Backend built with FastAPI and Async SQLite, perfect for Raspberry Pi.
+- **Premium UI**: Modern, responsive interface built with React 19, Tailwind CSS, and Radix UI.
 
 ## 🔒 Security Architecture
 
-
 ### User Authentication
-- When a user registers, their master password is hashed using **Argon2id** with a unique salt.
-- A random `master_key_salt` is generated and stored.
-- On login, the server verifies the hash. If successful, it returns a JWT.
+- **Hashing**: Master passwords are never stored. We use Argon2id with a unique salt for each user.
+- **Session**: Secure JWT-based authentication with configurable expiration.
 
 ### Vault Encryption
-- The client derives a master encryption key from the user's password and the `master_key_salt`.
-- Vault entries (passwords, notes, etc.) are encrypted on the client side using **AES-256-GCM**.
-- The server receives and stores only the `encrypted_data` and the `nonce`.
-- Decryption happens solely in the user's browser; the server cannot read your stored passwords.
+- **Client-Side**: Encryption happens exclusively in the browser. 
+- **Algorithm**: AES-256-GCM provides both confidentiality and integrity.
+- **Host-Proof**: Even if the server is compromised, your passwords remain encrypted and unreadable without your master password.
+
+## 🛠️ Tech Stack
+
+- **Backend**: Python 3.11, FastAPI, Async SQLite (aiosqlite)
+- **Frontend**: React 19, Tailwind CSS, Radix UI, Lucide Icons
+- **DevOps**: Docker, GitHub Container Registry (GHCR)
+
+## 🏁 Development Setup
+
+If you want to contribute or run the project locally without Docker:
+
+### Backend
+1. `cd backend`
+2. `python3 -m venv venv && source venv/bin/activate`
+3. `pip install -r requirements.txt`
+4. `uvicorn server:app --reload --port 8000`
+
+### Frontend
+1. `cd frontend`
+2. `npm install`
+3. `npm start`
 
 ## 🧪 Testing
-
-To run the backend test suite:
-
+Run the backend validation suite:
 ```bash
-# Make sure your backend server is running on localhost:8000
+# Ensure server is running on localhost:8000
 python3 backend_test.py
 ```
 
 ## 📄 License
-
-This project is open-source.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
