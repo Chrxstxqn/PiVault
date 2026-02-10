@@ -1,0 +1,143 @@
+{
+  "project_name": "PiVault - Self-Hosted Password Manager",
+  "design_philosophy": {
+    "identity": "The Digital Vault",
+    "core_principles": [
+      "Zero-Trust Aesthetics: Visuals must convey encryption and security (locks, shields, code).",
+      "True Dark Mode: Optimized for OLED and night-time usage, reducing eye strain.",
+      "Density with Clarity: High-density data presentation (vault items) without visual clutter.",
+      "Raspberry Pi Native: Lightweight visuals, avoiding heavy WebGL effects in favor of CSS-only micro-interactions."
+    ],
+    "mood": "Secure, impenetrable, technical, reliable.",
+    "theme_strategy": "Dark Mode Only (Primary). Light mode is secondary or non-existent for this specific 'Hacker/Pro' persona."
+  },
+  "typography": {
+    "font_family": {
+      "headings": {
+        "name": "JetBrains Mono",
+        "fallback": "monospace",
+        "usage": "Headings, H1-H6, Branding, Codes, Keys",
+        "import_url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+      },
+      "body": {
+        "name": "Manrope",
+        "fallback": "sans-serif",
+        "usage": "Paragraphs, UI elements, Labels, Inputs",
+        "import_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+      }
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl font-bold tracking-tight",
+      "h2": "text-3xl font-bold tracking-tight",
+      "h3": "text-2xl font-semibold",
+      "body_lg": "text-lg leading-relaxed",
+      "body_base": "text-base leading-relaxed text-muted-foreground",
+      "caption": "text-sm text-muted-foreground uppercase tracking-widest"
+    }
+  },
+  "colors": {
+    "palette_name": "Encrypted Obsidian",
+    "background": {
+      "default": "#050505",
+      "card": "#0A0A0A",
+      "sidebar": "#000000",
+      "input": "#111111"
+    },
+    "primary": {
+      "name": "Cyber Safe",
+      "default": "#10B981",
+      "foreground": "#000000",
+      "hover": "#059669",
+      "usage": "Main actions, 'Safe' status, Success states"
+    },
+    "secondary": {
+      "name": "Tech Blue",
+      "default": "#0EA5E9",
+      "foreground": "#FFFFFF",
+      "usage": "Info, Selection, Links"
+    },
+    "accent": {
+      "name": "Warning Amber",
+      "default": "#F59E0B",
+      "usage": "Weak passwords, reuse warnings"
+    },
+    "destructive": {
+      "name": "Breach Red",
+      "default": "#EF4444",
+      "usage": "Delete, Compromised passwords"
+    },
+    "border": {
+      "default": "#27272A",
+      "active": "#3F3F46"
+    }
+  },
+  "components": {
+    "buttons": {
+      "default": "rounded-md font-medium transition-all active:scale-95",
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_15px_rgba(16,185,129,0.3)]",
+      "outline": "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+      "ghost": "hover:bg-accent hover:text-accent-foreground"
+    },
+    "cards": {
+      "style": "bg-card border border-white/10 rounded-lg shadow-sm hover:border-white/20 transition-colors",
+      "usage": "Vault items, Categories, Settings sections"
+    },
+    "inputs": {
+      "style": "bg-input border-transparent focus:border-primary focus:ring-1 focus:ring-primary rounded-md h-10 px-3 text-sm placeholder:text-muted-foreground/50",
+      "usage": "Search, Forms, Password fields"
+    },
+    "sidebar": {
+      "style": "bg-sidebar border-r border-border/40 h-screen",
+      "item_active": "bg-primary/10 text-primary border-r-2 border-primary",
+      "item_default": "text-muted-foreground hover:text-foreground hover:bg-white/5"
+    }
+  },
+  "layout_strategies": {
+    "dashboard_grid": {
+      "wrapper": "grid grid-cols-1 md:grid-cols-[250px_1fr] h-screen overflow-hidden",
+      "main_content": "h-full overflow-y-auto p-6 md:p-8"
+    },
+    "vault_list": {
+      "container": "flex flex-col gap-2",
+      "item": "group flex items-center justify-between p-4 bg-card hover:bg-white/5 border border-transparent hover:border-border rounded-md cursor-pointer transition-all"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "backdrop-blur-md bg-black/60 border-b border-white/10",
+    "gradients": "None. Use solid, matte colors for professional security look. 'Glow' effects allowed on primary actions only.",
+    "icons": {
+      "library": "lucide-react",
+      "style": "Stroke width 1.5px or 2px, crisp edges."
+    },
+    "loading": "Skeleton loaders with shimmer effect (bg-muted/50)."
+  },
+  "image_urls": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1696013910376-c56f76dd8178?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "Dark closed padlock on black surface, used for login/landing background overlay."
+    },
+    "tech_texture": {
+      "url": "https://images.unsplash.com/photo-1680992044138-ce4864c2b962?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "Server room closeup, used for 'Self-Hosted' feature section or about page."
+    }
+  },
+  "instructions_to_main_agent": [
+    "INSTALL FONTS: Add the Google Fonts imports to index.css immediately.",
+    "TAILWIND CONFIG: Update tailwind.config.js to use the specific 'Encrypted Obsidian' palette.",
+    "SHADCN OVERRIDES: Do not use default shadcn radii (0.5rem). Use smaller radii (0.375rem / rounded-md) for a 'sharper' tech feel.",
+    "DATA DENSITY: In the vault list, ensure passwords are hidden by default (******) with a toggle to show.",
+    "ZERO KNOWLEDGE UI: When loading the vault, show a 'Decryption' animation (even if fake/quick) to reinforce security perception.",
+    "MOBILE FIRST: The sidebar must become a bottom nav or hamburger menu on screens smaller than md.",
+    "TESTING: Add data-testid to all inputs (login, password, search) and buttons."
+  ],
+  "universal_guidelines": [
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) sparingly.",
+    "You MUST NOT apply universal transition. Eg: transition: all.",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 'sonner' for toasts.",
+    "Export components as named exports."
+  ]
+}
