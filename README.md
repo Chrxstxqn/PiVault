@@ -1,5 +1,5 @@
 # PiVault - Self-Hosted Password Manager
-### Created by [Christian Schito](https://github.com/christian-schito)
+### Created by [Christian Schito](https://christianschito.eu)
 **Version: 1.0.0**
 
 PiVault is a secure, self-hosted password manager optimized for Raspberry Pi and personal server environments. It features a "host-proof" architecture where the server stores encrypted data without having access to the decryption keys, ensuring maximum privacy.
