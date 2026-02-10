@@ -93,23 +93,39 @@ PiVault is a secure, self-hosted password manager optimized for Raspberry Pi and
    ```
    The application will open at `http://localhost:3000`.
 
-## � Docker Deployment
+## 🐳 Docker Deployment
 
-The easiest way to run PiVault is using Docker Compose.
+PiVault is optimized for Docker, making it easy to deploy on any server or Raspberry Pi.
 
-1. Ensure you have Docker and Docker Compose installed.
-2. Build and start the containers:
-   ```bash
-   docker-compose up -d --build
-   ```
-3. The application will be available at `http://localhost:8000`.
+### 1. Using the Pre-built Image (Recommended)
+The official image is available on **GitHub Container Registry**. You can run it without cloning the repository by using this `docker-compose.yml`:
 
-To stop the application:
-```bash
-docker-compose down
+```yaml
+services:
+  pivault:
+    image: ghcr.io/chrxstxqn/pivault:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/backend/data
+    environment:
+      - JWT_SECRET=change-me-to-something-very-long
+      - CORS_ORIGINS=*
+    restart: unless-stopped
 ```
 
-## �🔒 Security Architecture
+### 2. Manual Build
+If you want to build the image locally from source:
+
+1. Clone the repository and navigate to the folder.
+2. Build and launch:
+   ```bash
+   docker compose up -d --build
+   ```
+
+The application will be accessible at `http://localhost:8000`.
+
+## 🔒 Security Architecture
 
 
 ### User Authentication

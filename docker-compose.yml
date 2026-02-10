@@ -1,6 +1,7 @@
 services:
   pivault:
-    build: .
+    image: ghcr.io/chrxstxqn/pivault:latest
+    # build: .
     ports:
       - "8000:8000"
     volumes:
